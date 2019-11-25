@@ -8,6 +8,11 @@ public class Player : MonoBehaviour
     // SerializeField attribute allows us to serialize data and read and overwrite it in the inspector
     [SerializeField]
     private float _speed = 5f;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private float _fireRate = 0.5f;
+    private float _canFire = -1f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +24,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame (typically 60fps)
     void Update()
     {
-        CalculatePlayerMovement();   
+        CalculatePlayerMovement();
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            FireLaser();
+        }
     }
 
-    void CalculatePlayerMovement() {
+    void FireLaser()
+    {
+        // Time.time is how long the game has been running
+
+        _canFire = Time.time + _fireRate;
+
+        // Debug.Log("Space key pressed");
+        // Euler angle -> Quarternarion?
+        // Quaternion.identity is default rotation
+        // Vector3 offset = new Vector3(0, 0.8f, 0);
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+
+    }
+
+    void CalculatePlayerMovement()
+    {
         float horizontalInput = Input.GetAxis("Horizontal"); // -1 for left arrow (a), 0 for no input, 1 for right arrow (d)
         float verticalInput = Input.GetAxis("Vertical"); // -1 for left arrow (a), 0 for no input, 1 for right arrow (d)
 
