@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(Random.Range(-_xBounds, _yBounds), _yBounds, 0);
+        // Randomized spawn now controlled by Spawn Manager
+       // transform.position = new Vector3(Random.Range(-_xBounds, _yBounds), _yBounds, 0);
     }
 
     // Update is called once per frame
@@ -34,13 +35,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit: ");
-
         if(other.CompareTag("Player"))
         {
-            // Destroy us
-            // Damage Player
-            
+            Player player = other.transform.GetComponent<Player>();
+            if (player)
+            {
+                player.Damage();
+            }
+
             Destroy(this.gameObject);
 
             Debug.Log("Hit: " + other.transform.name);
@@ -50,8 +52,6 @@ public class Enemy : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
-            
-            Debug.Log("Hit: " + other.transform.name);
         }
     }
 }
