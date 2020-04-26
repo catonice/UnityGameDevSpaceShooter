@@ -8,11 +8,20 @@ public class Powerup : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private float _yBounds = 7f;
+    [SerializeField]
+    public enum Type
+    {
+        Speed,
+        TripleShot,
+        Shield
+    }
+
+    public Type type;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,10 +44,32 @@ public class Powerup : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.transform.GetComponent<Player>();
-            
+
             if (player != null)
             {
-                player.TripleShotActive();
+                switch (type)
+                {
+                    case Type.Speed:
+                        {
+                            player.SpeedActive();
+                            break;
+                        }
+                    case Type.TripleShot:
+                        {
+                            player.TripleShotActive();
+                            break;
+                        }
+                    case Type.Shield:
+                        {
+                            player.ShieldActive();
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+
             }
 
             Destroy(this.gameObject);

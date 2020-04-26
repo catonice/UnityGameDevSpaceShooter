@@ -27,7 +27,6 @@ public class Laser : MonoBehaviour
                 Destroy(gameObject); 
             }
 
-            
             // Destroy(this.gameObject, 5f); <--- destroy in 5 seconds
         }
     }

@@ -20,8 +20,10 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
     
-    [SerializeField]
     private bool _isTripleShotActive = false;
+    private bool _isSpeedActive = false;
+    private bool _isShieldActive = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
         */
 
         // Clamp function (sets value to inbetween min and max values) (value, min value, max value)
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -yBounds, 0), 0);
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -yBounds, yBounds), 0);
 
         if (transform.position.x > xBounds)
         {
@@ -124,7 +126,10 @@ public class Player : MonoBehaviour
 
     public void Damage() 
     {
-        _lives -= 1;
+        if (!_isShieldActive)
+        {
+            _lives -= 1;
+        }
 
         if(_lives < 1) 
         {
@@ -137,16 +142,44 @@ public class Player : MonoBehaviour
         }
     }
 
+    // TriShot power up
     public void TripleShotActive()
     {
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
     }
 
-    // Coroutines
     private IEnumerator TripleShotPowerDownRoutine()
     {
         yield return new WaitForSeconds(5f);
         _isTripleShotActive = false;
+    }
+
+    // Speed power up
+    public void SpeedActive()
+    {
+        _isSpeedActive = true;
+        _speed = 10f;
+        StartCoroutine(SpeedPowerDownRoutine());
+    }
+
+    private IEnumerator SpeedPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedActive = false;
+        _speed = 5f;
+    }
+
+    // Shield power up
+    public void ShieldActive()
+    {
+        _isShieldActive = true;
+        StartCoroutine(ShieldPowerDownRoutine());
+    }
+
+    private IEnumerator ShieldPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isShieldActive = false;
     }
 }
