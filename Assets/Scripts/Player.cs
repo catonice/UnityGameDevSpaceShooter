@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _shield;
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
@@ -126,12 +129,16 @@ public class Player : MonoBehaviour
 
     public void Damage() 
     {
-        if (!_isShieldActive)
+        if (_isShieldActive)
         {
-            _lives -= 1;
+            _isShieldActive = false;
+            _shield.SetActive(false);
+            return;
         }
 
-        if(_lives < 1) 
+        _lives -= 1;
+
+        if (_lives < 1) 
         {
             if (_spawnManager) 
             {
@@ -174,12 +181,6 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _isShieldActive = true;
-        StartCoroutine(ShieldPowerDownRoutine());
-    }
-
-    private IEnumerator ShieldPowerDownRoutine()
-    {
-        yield return new WaitForSeconds(5f);
-        _isShieldActive = false;
+        _shield.SetActive(true);
     }
 }
