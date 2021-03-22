@@ -274,7 +274,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796284745
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e5bb5a208ba6c8748afc689a658b0c12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -426,12 +426,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feffdbb96a560b04ab3b3fca46b08dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 6233456840271044399, guid: 3b321729134cc8c4ea666a8f3d96bd16,
+  _enemyPrefab: {fileID: 6233456840271044399, guid: 40e7f48377815894b96c3e25908095a8,
     type: 3}
   powerups:
   - {fileID: 1397159464588266375, guid: 2b77517b69ec86f4ea72d45135f05229, type: 3}
   - {fileID: 4308094379000815003, guid: c013efdb837b83a4ab42bd9d229b8dff, type: 3}
-  - {fileID: 3562855678511747913, guid: f66b53b038fb5dd41a11a989e96ddafe, type: 3}
+  - {fileID: 3562855678511747913, guid: ffcf4cb7e383be1439cfda739f733c7c, type: 3}
   _enemyContainer: {fileID: 835117198}
 --- !u!4 &782625758
 Transform:
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _laserPrefab: {fileID: 1649986582219160851, guid: cf30e6bddf0579f419dbfba8dd39c666,
+  _laserPrefab: {fileID: 1649986582219160851, guid: ee77b365876fcd84290655f93a754e3b,
     type: 3}
   _tripleShotPrefab: {fileID: 1998207091094801356, guid: 3bf757b6d263fe24eb99b12a39128546,
     type: 3}
