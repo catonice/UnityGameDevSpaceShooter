@@ -22,10 +22,14 @@ public class Player : MonoBehaviour
     private int _lives = 3;
 
     private SpawnManager _spawnManager;
-    
+    private UIManager _UIManager;
+
     private bool _isTripleShotActive = false;
     private bool _isSpeedActive = false;
     private bool _isShieldActive = false;
+
+    [SerializeField]
+    private int _score = 0;
 
 
     // Start is called before the first frame update
@@ -35,11 +39,18 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
 
         // Find game object
+        // Caching objects
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _UIManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
 
         if (!_spawnManager)
         {
             Debug.LogError("The Spawn Manager is NULL.");
+        }
+
+        if (!_UIManager)
+        {
+            Debug.LogError("The UI Manager is NULL.");
         }
     }
 
@@ -182,5 +193,10 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shield.SetActive(true);
+    }
+
+    public void AddScore(int points) {
+        _score += points;
+        _UIManager.UpdateScoreText(_score);
     }
 }

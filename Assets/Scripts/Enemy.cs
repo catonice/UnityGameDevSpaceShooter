@@ -10,11 +10,16 @@ public class Enemy : MonoBehaviour
     private float _yBounds = 7f;
     [SerializeField]
     private float _speed = 4f;
+
+    private Player _player;
+
     // Start is called before the first frame update
     void Start()
     {
         // Randomized spawn now controlled by Spawn Manager
-       // transform.position = new Vector3(Random.Range(-_xBounds, _yBounds), _yBounds, 0);
+        // transform.position = new Vector3(Random.Range(-_xBounds, _yBounds), _yBounds, 0);
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        // GetComponent is an expensive call so we cache the player object when an enemy is created
     }
 
     // Update is called once per frame
@@ -51,6 +56,12 @@ public class Enemy : MonoBehaviour
         if(other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
+
+            if (_player)
+            {
+                _player.AddScore(10);
+            }
+
             Destroy(this.gameObject);
         }
     }
